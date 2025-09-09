@@ -1,7 +1,7 @@
 /* ====== Base do site / páginas do teste ====== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom, #ffffff, #FFFFCC); /* Gradiente do branco para amarelo um pouco mais forte */
+    background: linear-gradient(to bottom, #ffffff 0%, #ede16d 50%); /* Gradiente do branco para amarelo #ede16d em 50% */
     color: #ffffff; /* Texto em branco */
     margin: 0;
     padding: 20px;
