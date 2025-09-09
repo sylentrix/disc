@@ -1,7 +1,7 @@
 /* ====== Base do site / páginas do teste ====== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom, #ffffff, #fcf8d4); /* Gradiente do branco para amarelo bem claro */
+    background: linear-gradient(to bottom, ##c9c6a9, #fcf8d4); /* Gradiente do branco para amarelo bem claro */
     color: #ffffff; /* Texto em branco */
     margin: 0;
     padding: 20px;
@@ -214,4 +214,5 @@ button:hover { background-color: #8c0000; }
 #results-table th, #results-table td { padding: 12px; border: 1px solid #555; word-wrap: break-word; }
 #results-table th { background-color: #a30000; color: #fff; }
 #results-table tr:nth-child(even) { background-color: #222; }
+
 
