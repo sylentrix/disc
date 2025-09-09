@@ -1,7 +1,7 @@
 /* ====== Base do site / páginas do teste ====== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e91717; /* Fundo vermelho BricoBread */
+    background: linear-gradient(to bottom, #ffffff, #FFFFF0); /* Gradiente do branco para amarelo bem claro */
     color: #ffffff; /* Texto em branco */
     margin: 0;
     padding: 20px;
