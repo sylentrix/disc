@@ -13,12 +13,12 @@ body {
 }
 
 .page {
-    background: #1a1a1a; /* container escuro */
-    padding: 25px; /* Reduzido o padding para tornar o retângulo menor */
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.15);
-    width: 90%; /* Ajustado para ocupar 90% da largura disponível */
-    max-width: 450px; /* Reduzido o max-width para o retângulo preto, mantendo o responsivo */
+    background: #1a1a1a; /* fundo escuro */
+    padding: 15px; /* ainda menor */
+    border-radius: 10px; /* bordas um pouco menos largas */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* sombra mais leve */
+    width: 85%; /* ocupa menos espaço da largura */
+    max-width: 350px; /* menor largura máxima */
     display: none;
     flex-direction: column;
     align-items: center;
@@ -229,3 +229,4 @@ button:hover { background-color: #8c0000; }
 #results-table th, #results-table td { padding: 12px; border: 1px solid #555; word-wrap: break-word; }
 #results-table th { background-color: #a30000; color: #fff; }
 #results-table tr:nth-child(even) { background-color: #222; }
+
