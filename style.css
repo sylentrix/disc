@@ -24,7 +24,7 @@ body {
 }
 
 .page {
-  background: #706565; /* fundo escuro */
+  background: #b6b1b1; /* fundo escuro */
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
@@ -72,22 +72,22 @@ form {
 label {
   align-self: flex-start;
   font-weight: bold;
-  color: #cccccc;
+  color: #ffffff;
   margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="email"] {
-  background-color: #333;
+  background-color: #fcfcfc;
   color: #ffffff;
-  border: 1px solid #555;
+  border: 1px solid #ffffff;
   padding: 12px 15px;
   border-radius: 6px;
   box-sizing: border-box;
   font-size: 16px;
 }
 
-input::placeholder { color: #888; }
+input::placeholder { color: #a0a0a0; }
 
 input:focus {
   border-color: #a30000;
