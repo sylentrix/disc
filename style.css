@@ -1,10 +1,6 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(
-        to bottom,
-        #ffffff 0%,   /* começa branco */
-        #f0df3c 100%  /* termina amarelo */
-    );
+   background-image: linear-gradient(to bottom, #ffffff, #f0df3c);
     color: #ffffff; 
     margin: 0;
     padding: 20px;
@@ -234,4 +230,5 @@ button:hover { background-color: #8c0000; }
 #results-table th, #results-table td { padding: 12px; border: 1px solid #555; word-wrap: break-word; }
 #results-table th { background-color: #a30000; color: #fff; }
 #results-table tr:nth-child(even) { background-color: #222; }
+
 
