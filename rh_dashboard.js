@@ -51,15 +51,37 @@ function abrirModal(nome, valores) {
       datasets: [{
         label: 'Número de Respostas',
         data: arr,
-        backgroundColor: ['#a30000', '#2980b9', '#2ecc71', '#555'] // paleta BricoBread
+        backgroundColor: ['#a30000', '#2980b9', '#318a20ff', '#555'] // paleta BricoBread (verde unificado)
       }]
     },
     options: {
       responsive: true,
       scales: {
-        y: { beginAtZero: true, ticks: { stepSize: 1 }, suggestedMax: 26 }
+        y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1, color: '#333' }, // Cor dos ticks para o tema claro
+            grid: { color: '#ccc' } // Cor da grade para o tema claro
+        },
+        x: {
+            ticks: { color: '#333' }, // Cor das labels do eixo X para o tema claro
+            grid: { color: '#ccc' } // Cor da grade para o tema claro
+        }
       },
-      plugins: { legend: { display: false } }
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+            callbacks: {
+                label: function(context) {
+                    let label = context.dataset.label || '';
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += context.raw;
+                    return label;
+                }
+            }
+        }
+      }
     }
   });
 
@@ -88,7 +110,9 @@ async function fetchResults() {
       const data = doc.data();
       const row = document.createElement('tr');
 
-      const formattedDate = new Date(data.data).toLocaleString('pt-BR');
+      // Garante que `data.data` é um Timestamp do Firebase ou ISO string para formatação
+      const dateObject = data.data instanceof firebase.firestore.Timestamp ? data.data.toDate() : new Date(data.data);
+      const formattedDate = dateObject.toLocaleString('pt-BR');
 
       row.innerHTML = `
         <td>${data.nome ?? ''}</td>
@@ -99,7 +123,7 @@ async function fetchResults() {
         <td>${data.conformidade ?? 0}</td>
         <td>${formattedDate}</td>
         <td>
-          <button class="btn btn-ver-grafico"
+          <button class="btn-ver-grafico"
             data-nome="${data.nome ?? ''}"
             data-d="${data.dominancia ?? 0}"
             data-i="${data.influencia ?? 0}"
@@ -114,7 +138,7 @@ async function fetchResults() {
 
   } catch (error) {
     console.error("Erro ao buscar resultados: ", error);
-    resultsTbody.innerHTML = `<tr><td colspan="8">Erro ao carregar dados. Verifique a conexão com o Firebase.</td></tr>`;
+    resultsTbody.innerHTML = `<tr><td colspan="8" style="color: #a30000; text-align: center;">Erro ao carregar dados. Verifique a conexão com o Firebase ou as permissões de acesso.</td></tr>`;
   }
 }
 
