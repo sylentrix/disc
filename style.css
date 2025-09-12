@@ -1,39 +1,44 @@
+/* START OF FILE style.css */
+
 /* ====== Base ====== */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  /* Degradê contínuo e suave (branco -> amarelo) */
+  /* Fundo degradê em tons de cinza, conforme a imagem de referência */
   background: linear-gradient(
     to bottom,
-    #ffffff 0%,
-    #ffffff 25%,
-    #f0df3c 100%
+    #333333 0%,
+    #666666 50%,
+    #aaaaaa 100%
   );
-  background-attachment: fixed; /* fixa o fundo */
+  background-attachment: fixed;
 
-  color: #ffffff;
+  color: #ffffff; /* Cor de texto padrão do body (pode ser sobrescrita) */
   margin: 0;
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  min-height: 100dvh; /* usa dvh pra mobile */
+  min-height: 100dvh;
   box-sizing: border-box;
   overflow-x: hidden;
 }
 
 .page {
-  background: #b6b1b1; /* fundo escuro */
+  /* MODIFICAÇÃO: Fundo do cartão para um cinza mais claro */
+  background: #d1d1d1; /* Fundo do cartão, correspondendo à imagem */
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  /* MODIFICAÇÃO: Sombra da caixa mais proeminente e escura, a "borda" */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
   width: 85%;
   max-width: 350px;
   display: none;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative;
 }
 
 .page.active { display: flex; }
@@ -41,14 +46,15 @@ body {
 /* ===== Logo ===== */
 .logo {
   display: block;
-  margin: 10px auto 20px; /* centraliza no topo e dá espaço abaixo */
-  max-width: 180px;       /* controla largura máxima */
-  height: auto;           /* mantém proporção */
+  margin: 10px auto 20px;
+  max-width: 180px;
+  height: auto;
 }
 
 /* ===== Títulos ===== */
 h1 {
-  color: #ffffff;
+  /* MODIFICAÇÃO: Cor do título h1 para azul, conforme a imagem destacada */
+  color: #E0201C;
   margin-bottom: 20px;
   font-size: 1.5em;
   text-align: center;
@@ -57,9 +63,27 @@ h1 {
 }
 
 h2 {
-  color: #ffffff;
   margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease-in-out;
 }
+
+/* Specific styling for h2 on results page */
+#results-page h2 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* Cores dinâmicas para o título h2, aplicadas via JS */
+h2.profile-D { color: #a30000; }
+h2.profile-I { color: #2980b9; }
+h2.profile-S { color: #2ecc71; }
+h2.profile-C { color: #555; }
+/* Cor padrão caso não haja perfil (ou para perfis equilibrados se for decidido não ter cor específica) */
+h2:not([class*="profile-"]) { color: #ffffff; }
+
 
 /* ===== Formulários ===== */
 form {
@@ -72,14 +96,15 @@ form {
 label {
   align-self: flex-start;
   font-weight: bold;
-  color: #ffffff;
+  /* MODIFICAÇÃO: Cor dos labels para cinza escuro, conforme a imagem */
+  color: #333333;
   margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="email"] {
   background-color: #fcfcfc;
-  color: #ffffff;
+  color: #333;
   border: 1px solid #ffffff;
   padding: 12px 15px;
   border-radius: 6px;
@@ -112,8 +137,334 @@ button {
   transition: background-color 0.3s ease;
   padding: 12px 15px;
   border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
 }
 button:hover { background-color: #8c0000; }
+
+/* Style for the back arrow button (icon-back-button) */
+.icon-back-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: transform 0.2s ease-in-out;
+    color: #ffffff;
+}
+
+.icon-back-button.hidden {
+    display: none;
+}
+
+.icon-back-button:hover {
+    transform: translateX(-3px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.icon-back-button svg {
+    fill: #ffffff;
+}
+
+
+/* ===== Question Card (Wizard) Styles ===== */
+#quiz-page {
+    justify-content: flex-start;
+    padding-top: 50px;
+}
+
+/* Corrigido o posicionamento da barra de progresso */
+#progress-container {
+    max-width: calc(350px - 30px);
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 30px);
+    background-color: #d8d8d8;
+    border-radius: 5px;
+    height: 25px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease-in-out, transform 0.3s ease-in-out, left 0.3s ease-in-out, right 0.3s ease-in-out;
+}
+
+/* Override quando o quizBackButton está visível - MODIFICADO PARA CENTRALIZAR */
+#quiz-page .icon-back-button:not(.hidden) + #progress-container {
+    left: 55px;
+    right: 15px;
+    width: auto;
+    max-width: calc(350px - (55px + 15px));
+    transform: none;
+    margin: auto;
+}
+
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #a30000;
+    border-radius: 5px;
+    transition: width 0.4s ease-in-out;
+}
+
+#progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #333;
+    font-size: 0.9em;
+    font-weight: bold;
+    z-index: 1;
+}
+
+#question-card-container {
+    width: 100%;
+    margin-top: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.question-card {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.question-card p {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #a30000;
+}
+
+.question-card .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.question-card .options label {
+    display: flex;
+    align-items: flex-start;
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.question-card .options label:hover,
+.question-card .options label.selected {
+    border-color: #a30000;
+    background-color: #fff0f0;
+}
+
+.question-card .options input[type="radio"] {
+    margin-right: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #a30000;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+}
+
+.question-card .options input[type="radio"]:checked {
+    background-color: #a30000;
+    border-color: #a30000;
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+.question-card .options .option-main-text {
+    font-weight: normal;
+    font-size: 1em;
+    color: #333;
+    margin-left: 28px;
+    padding-right: 10px;
+    display: block;
+}
+
+.question-card .options .option-explanation {
+    font-size: 0.75em;
+    color: #666;
+    margin-top: 5px;
+    margin-left: 28px;
+    line-height: 1.3;
+}
+
+
+/* ===== Results Page ===== */
+#results-page .chart-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+}
+#results-page .chart-container h3 {
+    color: #ffffff;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+
+#results-page #profile-text {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+/* Novo estilo para o título principal do perfil dentro do bloco de texto */
+#results-page #profile-text .predominant-profile-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+
+#results-page #profile-text p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+/* Last paragraph in profile-text should not have bottom margin if followed by profile-pros-cons */
+#results-page #profile-text p:last-of-type {
+    margin-bottom: 0;
+}
+
+
+#results-page .profile-pros-cons {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e8e8e8;
+    border-radius: 8px;
+    text-align: left;
+    color: #333;
+}
+
+#results-page .profile-pros-cons h3 {
+    color: #a30000;
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#results-page .profile-pros-cons ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 0;
+    margin-bottom: 0;
+    font-size: 0.85em;
+}
+#results-page .profile-pros-cons li {
+    margin-bottom: 4px;
+}
+#results-page .profile-pros-cons ul li:last-of-type {
+    margin-bottom: 0;
+}
+
+
+#results-page #restart-button {
+    margin-top: 30px;
+}
+
+/* ========================================= */
+/* Layout para telas maiores (Desktop/PC)    */
+/* ========================================= */
+@media (min-width: 769px) {
+    .page {
+        max-width: 1000px;
+        width: 90%;
+        padding: 30px;
+    }
+
+    #results-page h2 {
+        margin-top: 0;
+    }
+
+    .results-content-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .chart-group {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        flex: 1 1 45%;
+        max-width: 450px;
+    }
+
+    #results-page .chart-container {
+        margin: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    #profile-text {
+        flex: 1 1 45%;
+        max-width: 450px;
+        margin-top: 0;
+    }
+
+    /* Ajuste para botões ficarem no centro abaixo dos containers, se desejar */
+    #results-page #restart-button {
+        width: auto;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-top: 40px;
+    }
+}
+
 
 /* ===== Responsividade ===== */
 @media (max-width: 768px) {
@@ -125,10 +476,32 @@ button:hover { background-color: #8c0000; }
     max-width: 350px;
   }
   .logo {
-    max-width: 120px; /* diminui em telas pequenas */
+    max-width: 120px;
   }
   h1 { font-size: 1.4em; margin-bottom: 15px; }
   h2 { font-size: 1.4em; margin-bottom: 15px; }
   form { gap: 15px; }
   input, button { padding: 10px 12px; font-size: 16px; }
+
+  #quiz-page { padding-top: 65px; }
+  #progress-container {
+      width: calc(100% - 40px);
+      left: 50%;
+      transform: translateX(-50%);
+  }
+
+  /* Adjust back button on smaller screens */
+  .icon-back-button {
+      top: 15px;
+      left: 10px;
+  }
+
+  /* Correção para mobile quando o botão de voltar está visível - MODIFICADO PARA CENTRALIZAR */
+  #quiz-page .icon-back-button:not(.hidden) + #progress-container {
+      left: 50px;
+      right: 10px;
+      width: auto;
+      transform: none;
+      margin: auto;
+  }
 }
