@@ -10,6 +10,7 @@
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
 </head>
 <body>
 
@@ -26,25 +27,48 @@
     </div>
 
     <div id="quiz-page" class="page">
-        <h2>Perguntas</h2>
-        <form id="quiz-form">
-            <div id="questions-container"></div>
-            <button type="submit">Finalizar Teste</button>
-        </form>
+        <button id="quiz-back-button" class="icon-back-button hidden" aria-label="Voltar para a questão anterior">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+            <span id="progress-text" aria-live="polite">0/26</span>
+        </div>
+        <div id="question-card-container">
+            <!-- Questions will be rendered here, one at a time -->
+        </div>
+         <!-- O botão "Finalizar Teste" foi removido daqui e a transição é automática -->
     </div>
 
     <div id="results-page" class="page">
+        <button id="results-back-to-quiz-button" class="icon-back-button" aria-label="Voltar para o questionário">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
         <h2 id="participant-name"></h2>
-        <div class="chart-container">
-            <canvas id="disc-chart"></canvas>
+
+        <div class="results-content-wrapper"> <!-- Novo wrapper para layout em desktop -->
+            <div class="chart-group"> <!-- Novo grupo para os gráficos -->
+                <div class="chart-container">
+                    <h3>Gráfico de Barras (Contagem de Respostas)</h3>
+                    <canvas id="disc-bar-chart" aria-label="Gráfico de Barras do Perfil DISC"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Gráfico Radar (Percentual por Fator)</h3>
+                    <canvas id="disc-radar-chart" aria-label="Gráfico Radar do Perfil DISC"></canvas>
+                </div>
+            </div>
+            
+            <div id="profile-text"></div> <!-- Bloco de texto interpretativo -->
         </div>
-        <div id="profile-text"></div>
+        
         <button id="restart-button">Fazer Novo Teste</button>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
